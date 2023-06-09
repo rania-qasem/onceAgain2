@@ -2,11 +2,16 @@ package com.example.onceagain;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
@@ -18,6 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 public class SignUp extends AppCompatActivity {
 
@@ -26,10 +32,17 @@ public class SignUp extends AppCompatActivity {
     MaterialButton SignUp, JoinNow;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://once-again-33-default-rtdb.firebaseio.com/");
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        //Shared preferences
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("shared", getApplicationContext().MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        Gson gson = new Gson();
+        User currUser = new User();
 
         SignUp = findViewById(R.id.signUp);
         Email = findViewById(R.id.email);
@@ -58,7 +71,7 @@ public class SignUp extends AppCompatActivity {
 
                 //check the constrains on the fields before sending data to firebase
                 if (!UsernameValidation() || !PasswordValidation() || !PhoneValidation() || !EmailValidation() || !AddressValidation()){
-                    progressDialog.show();
+                    progressDialog.dismiss();
                     return;
                 }
                 else {
@@ -81,24 +94,21 @@ public class SignUp extends AppCompatActivity {
                                 //show success message then finish activity
                                 Toast.makeText(SignUp.this, "User registered successfully.", Toast.LENGTH_SHORT).show();
 
-                                String usernameFromDB = snapshot.child(phone).child("username").getValue(String.class);
-                                String PhoneFromDB = snapshot.child(phone).child("phone").getValue(String.class);
-                                String LocationFromDB = snapshot.child(phone).child("address").getValue(String.class);
-                                String PasswordFromDB = snapshot.child(phone).child("password").getValue(String.class);
-                                String EmailFromDB = snapshot.child(phone).child("email").getValue(String.class);
+                                //////////////////////////////////////////////////////////////
+                                currUser.setEmailAddress(email);
+                                currUser.setFullName(username);
+                                currUser.setUserAddress(address);
+                                currUser.setPhoneNum(phone);
+                                String userJson = gson.toJson(currUser);
+                                editor.putString("user", userJson);
+                                editor.commit();
 
                                 //open Home activity
                                 Intent intent = new Intent(getApplicationContext(), Home.class);
-
-//                                //pass the data using intent
-//                                intent.putExtra("phone", PhoneFromDB);
-//                                intent.putExtra("email", EmailFromDB);
-//                                intent.putExtra("username", usernameFromDB);
-//                                intent.putExtra("password", PasswordFromDB);
-//                                intent.putExtra("address", LocationFromDB);
-
                                 startActivity(intent);
                                 finish();
+
+                                Toast.makeText(SignUp.this, "we reached here - this code will not execute", Toast.LENGTH_SHORT).show();
                             }
                         }
 
@@ -130,6 +140,15 @@ public class SignUp extends AppCompatActivity {
 
 
 
+//    public void sharedData(String email,String password,String username,String phone,String address){
+//        editor.putString("full_name", username);
+//        editor.putString("phone_number", phone);
+//        editor.putString("location", address);
+//        editor.putString("password", password);
+//        editor.putString("email", email);
+////        editor.commit();
+////        editor.apply();
+//    }
 
     boolean EmailValidation () {
         email = Email.getEditText().getText().toString().trim();

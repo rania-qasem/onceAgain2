@@ -59,9 +59,11 @@
                 android:layout_height="match_parent"
                 android:text="Model"
                 android:padding="10dp" />
-            <TextView
+            <EditText
+                android:id="@+id/model"
                 android:layout_width="220dp"
                 android:layout_height="match_parent"
+                android:background="@android:color/transparent"
                 android:padding="10dp"
                 android:textColor="@color/secondaryTextColor" />
         </LinearLayout>
@@ -78,11 +80,19 @@
                 android:layout_height="match_parent"
                 android:text="Year"
                 android:padding="10dp" />
-            <TextView
+            <EditText
+                android:id="@+id/year"
                 android:layout_width="220dp"
                 android:layout_height="match_parent"
+                android:background="@android:color/transparent"
                 android:padding="10dp"
-                android:textColor="@color/secondaryTextColor"/>
+                android:textColor="@color/secondaryTextColor" />
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:text="Color" />
         </LinearLayout>
 
         <LinearLayout
@@ -96,11 +106,13 @@
                 android:layout_height="match_parent"
                 android:text="Regional Specs"
                 android:padding="10dp" />
-            <TextView
+            <EditText
+                android:id="@+id/Regiona_Specs"
                 android:layout_width="220dp"
                 android:layout_height="match_parent"
+                android:background="@android:color/transparent"
                 android:padding="10dp"
-                android:textColor="@color/secondaryTextColor"/>
+                android:textColor="@color/secondaryTextColor" />
         </LinearLayout>
 
         <LinearLayout
@@ -115,11 +127,13 @@
                 android:layout_height="match_parent"
                 android:text="Transmission"
                 android:padding="10dp" />
-            <TextView
+            <EditText
+                android:id="@+id/Transmission"
                 android:layout_width="220dp"
                 android:layout_height="match_parent"
+                android:background="@android:color/transparent"
                 android:padding="10dp"
-                android:textColor="@color/secondaryTextColor"/>
+                android:textColor="@color/secondaryTextColor" />
         </LinearLayout>
 
         <LinearLayout
@@ -133,11 +147,13 @@
                 android:layout_height="match_parent"
                 android:text="Fuel"
                 android:padding="10dp" />
-            <TextView
+            <EditText
+                android:id="@+id/Fuel"
                 android:layout_width="220dp"
                 android:layout_height="match_parent"
+                android:background="@android:color/transparent"
                 android:padding="10dp"
-                android:textColor="@color/secondaryTextColor"/>
+                android:textColor="@color/secondaryTextColor" />
         </LinearLayout>
 
         <LinearLayout
@@ -147,16 +163,19 @@
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
             android:background="@drawable/information_bg">
+
             <TextView
                 android:layout_width="130dp"
                 android:layout_height="match_parent"
                 android:text="Color"
                 android:padding="10dp" />
-            <TextView
+            <EditText
+                android:id="@+id/Color"
                 android:layout_width="220dp"
                 android:layout_height="match_parent"
+                android:background="@android:color/transparent"
                 android:padding="10dp"
-                android:textColor="@color/secondaryTextColor"/>
+                android:textColor="@color/secondaryTextColor" />
         </LinearLayout>
 
         <LinearLayout
@@ -170,11 +189,13 @@
                 android:layout_height="match_parent"
                 android:text="Condition"
                 android:padding="10dp" />
-            <TextView
+            <EditText
+                android:id="@+id/Condition"
                 android:layout_width="220dp"
                 android:layout_height="match_parent"
+                android:background="@android:color/transparent"
                 android:padding="10dp"
-                android:textColor="@color/secondaryTextColor"/>
+                android:textColor="@color/secondaryTextColor" />
         </LinearLayout>
 
         <LinearLayout
@@ -189,11 +210,13 @@
                 android:layout_height="match_parent"
                 android:text="Kilometers"
                 android:padding="10dp" />
-            <TextView
+            <EditText
+                android:id="@+id/Kilometers"
                 android:layout_width="220dp"
                 android:layout_height="match_parent"
+                android:background="@android:color/transparent"
                 android:padding="10dp"
-                android:textColor="@color/secondaryTextColor"/>
+                android:textColor="@color/secondaryTextColor" />
         </LinearLayout>
 
         <LinearLayout
@@ -207,11 +230,13 @@
                 android:layout_height="match_parent"
                 android:text="Paint"
                 android:padding="10dp" />
-            <TextView
+            <EditText
+                android:id="@+id/Paint"
                 android:layout_width="220dp"
                 android:layout_height="match_parent"
+                android:background="@android:color/transparent"
                 android:padding="10dp"
-                android:textColor="@color/secondaryTextColor"/>
+                android:textColor="@color/secondaryTextColor" />
         </LinearLayout>
 
         <LinearLayout
@@ -226,11 +251,13 @@
                 android:layout_height="match_parent"
                 android:text="Body Condition"
                 android:padding="10dp" />
-            <TextView
+            <EditText
+                android:id="@+id/Body_Condition"
                 android:layout_width="220dp"
                 android:layout_height="match_parent"
+                android:background="@android:color/transparent"
                 android:padding="10dp"
-                android:textColor="@color/secondaryTextColor"/>
+                android:textColor="@color/secondaryTextColor" />
         </LinearLayout>
 
         <LinearLayout
@@ -244,11 +271,13 @@
                 android:layout_height="match_parent"
                 android:text="Payment Method"
                 android:padding="10dp" />
-            <TextView
+            <EditText
+                android:id="@+id/Payment_Method"
                 android:layout_width="220dp"
                 android:layout_height="match_parent"
+                android:background="@android:color/transparent"
                 android:padding="10dp"
-                android:textColor="@color/secondaryTextColor"/>
+                android:textColor="@color/secondaryTextColor" />
         </LinearLayout>
 
         <LinearLayout
@@ -263,11 +292,13 @@
                 android:layout_height="match_parent"
                 android:text="Price"
                 android:padding="10dp" />
-            <TextView
+            <EditText
+                android:id="@+id/Price"
                 android:layout_width="220dp"
                 android:layout_height="match_parent"
+                android:background="@android:color/transparent"
                 android:padding="10dp"
-                android:textColor="@color/secondaryTextColor"/>
+                android:textColor="@color/secondaryTextColor" />
         </LinearLayout>
 
         <TextView
@@ -288,11 +319,13 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/Description"
                 android:hint="Write a description ..."
                 android:inputType="text"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/save_car"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="30dp"

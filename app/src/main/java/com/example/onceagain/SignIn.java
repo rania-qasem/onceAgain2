@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 public class SignIn extends AppCompatActivity {
 
@@ -28,6 +30,12 @@ public class SignIn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
+        // shared preferences
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("shared",getApplicationContext().MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        Gson gson = new Gson();
+        User currUser = new User();
 
         Phone = findViewById(R.id.phone);
         Password = findViewById(R.id.password1);
@@ -49,11 +57,21 @@ public class SignIn extends AppCompatActivity {
                             //check if phone is exist in firebase database
                             if (snapshot.hasChild(phone)){
                                 //mobile is exist in firebase database
-                                //now get password of user from firebase data and match it with user entered password
+                                //now get password of user from firebase database and match it with user entered password
                                 final String getPassword = snapshot.child(phone).child("password").getValue(String.class);
 
                                 if (getPassword.equals(password)){
                                     Toast.makeText(SignIn.this, "Successfully Logged in", Toast.LENGTH_SHORT).show();
+
+                                    //get email, username and address from firebase database
+                                    currUser.setEmailAddress(snapshot.child(phone).child("email").getValue(String.class));
+                                    currUser.setFullName(snapshot.child(phone).child("username").getValue(String.class));
+                                    currUser.setUserAddress(snapshot.child(phone).child("address").getValue(String.class));
+                                    currUser.setPhoneNum(phone);
+                                    String userJson = gson.toJson(currUser);
+                                    editor.putString("user",userJson);
+                                    editor.commit();
+//                                    editor.putBoolean("isSignedIn",true);
 
                                     //open Home activity on success
                                     startActivity(new Intent(getApplicationContext(), Home.class));
@@ -67,14 +85,6 @@ public class SignIn extends AppCompatActivity {
                                 Toast.makeText(SignIn.this, "Wrong Phone", Toast.LENGTH_SHORT).show();
 
                             }
-
-
-                            //pass the userID(phone) to profile fragment
-                            Bundle bundle = new Bundle();
-                            bundle.putString("phone", phone);
-
-                            ProfileFragment fragment = new ProfileFragment();
-                            fragment.setArguments(bundle);
                         }
 
                         @Override
@@ -83,9 +93,9 @@ public class SignIn extends AppCompatActivity {
                         }
                     });
                 }
-            }
+            }//End of onClick
         });
-    }
+    }//End of onCreate
 
 
     boolean PhoneValidation () {

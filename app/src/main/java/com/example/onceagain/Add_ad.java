@@ -7,12 +7,16 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Add_ad extends AppCompatActivity {
 
     MaterialCardView Cars;
     MaterialCardView Books;
     MaterialCardView Electronics;
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://once-again-33-default-rtdb.firebaseio.com/");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +27,9 @@ public class Add_ad extends AppCompatActivity {
         Cars.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
                 Intent intent = new Intent(getApplicationContext(), carInformation.class);
                 startActivity(intent);
             }

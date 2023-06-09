@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="YearPickerDialogTheme" parent="Theme.MaterialComponents.Light.NoActionBar">YearPickerDialogTheme
+
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:colorAccent">@color/secondaryLightColor</item>
+    </style>
+
+</resources>

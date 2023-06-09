@@ -1,11 +1,13 @@
 package com.example.onceagain;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 public class ProfileFragment extends Fragment {
 
@@ -32,6 +35,11 @@ public class ProfileFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.profile_fragment, container, false);
 
+        SharedPreferences sharedPref =getActivity().getSharedPreferences("shared",getActivity().MODE_PRIVATE);
+        Gson gson = new Gson();
+        String userJson = sharedPref.getString("user","null");
+        User currUser = gson.fromJson(userJson,User.class);
+
         Username = view.findViewById(R.id.profile_username);
         Phone = view.findViewById(R.id.profile_phone);
         Address = view.findViewById(R.id.profile_address);
@@ -40,64 +48,11 @@ public class ProfileFragment extends Fragment {
         TitleName = view.findViewById(R.id.title_name);
         EditProfile = view.findViewById(R.id.editProfile);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null){
-            String phone = user.getUid();
-            databaseReference = FirebaseDatabase.getInstance().getReference("users").child(phone);
-            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()){
-                        String email = snapshot.child("email").getValue(String.class);
-                        String password = snapshot.child("password").getValue(String.class);
-                        String username = snapshot.child("username").getValue(String.class);
-                        String address = snapshot.child("address").getValue(String.class);
-
-                        Username.setText(username);
-                        Email.setText(email);
-                        Password.setText(password);
-                        Address.setText(address);
-                        TitleName.setText(username);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-        }
-
-
-
-//        Bundle bundle = getArguments();
-//        if (bundle != null){
-//            String phone = bundle.getString("phone");
-//
-//            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users").child(phone);
-//            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                    String email = snapshot.child("email").getValue(String.class);
-//                    String password = snapshot.child("password").getValue(String.class);
-//                    String username = snapshot.child("username").getValue(String.class);
-//                    String address = snapshot.child("address").getValue(String.class);
-//
-//                    Username.setText(username);
-//                    Email.setText(email);
-//                    Password.setText(password);
-//                    Address.setText(address);
-//                    TitleName.setText(username);
-//                    Phone.setText(phone);
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError error) {
-//
-//                }
-//            });
-//        }
-
+        Username.setText(currUser.getFullName());
+        Phone.setText(currUser.getPhoneNum());
+        Address.setText(currUser.getUserAddress());
+        Email.setText(currUser.getEmailAdress());
+        TitleName.setText(currUser.getFullName());
 
         EditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +64,4 @@ public class ProfileFragment extends Fragment {
 
         return view;
     }
-
-
 }
