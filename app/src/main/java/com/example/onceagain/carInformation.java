@@ -55,6 +55,11 @@ public class carInformation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_information);
 
+        //Shared preferences
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("carInfo", getApplicationContext().MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        Gson gson = new Gson();
+
         Model = findViewById(R.id.model);
         carType = findViewById(R.id.carType);
         Transmission= findViewById(R.id.Transmission);
@@ -115,6 +120,7 @@ public class carInformation extends AppCompatActivity {
                         Car car = new Car();
                         car.setAdId(CarId);
                         car.setUserId(currentUserId);
+                        car.setCarType(Car_Type);
                         car.setModel(model);
                         car.setTransmission(transmission);
                         car.setFuel(fuel);
@@ -131,6 +137,13 @@ public class carInformation extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()){
+                                    String carJson = gson.toJson(car);
+                                    int carCount = sharedPref.getAll().size();
+                                    String carKey = "car" + carCount;
+                                    editor.putString(carKey, carJson);
+                                    editor.apply();
+
+
                                     Toast.makeText(getApplicationContext(), "Car saved successfully", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(carInformation.this, Home.class);
                                     startActivity(intent);

@@ -3,14 +3,14 @@ package com.example.onceagain;
 public class Car {
     private String adId;
     private String userId;
-    private String model, transmission, fuel, color, condition, kilometers, paint, body_Condition, payment_Method, price, description;
+    private String carType, model, transmission, fuel, color, condition, kilometers, paint, body_Condition, payment_Method, price, description;
 
 
     public Car() {
 
     }
 
-    public Car(String adId, String userId, String model,String transmission, String fuel, String color, String condition, String kilometers, String paint, String body_Condition, String payment_Method, String price, String description) {
+    public Car(String carType, String adId, String userId, String model,String transmission, String fuel, String color, String condition, String kilometers, String paint, String body_Condition, String payment_Method, String price, String description) {
         this.adId = adId;
         this.userId = userId;
         this.transmission = transmission;
@@ -23,6 +23,15 @@ public class Car {
         this.payment_Method = payment_Method;
         this.price = price;
         this.description = description;
+        this.carType = carType;
+    }
+
+    public String getCarType() {
+        return carType;
+    }
+
+    public void setCarType(String carType) {
+        this.carType = carType;
     }
 
     public String getAdId() {
@@ -42,11 +51,11 @@ public class Car {
     }
 
     public String getModel() {
-        return userId;
+        return model;
     }
 
     public void setModel(String userId) {
-        this.userId = userId;
+        this.model = model;
     }
 
     public String getTransmission() {

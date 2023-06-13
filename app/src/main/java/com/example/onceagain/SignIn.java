@@ -22,7 +22,7 @@ import com.google.gson.Gson;
 public class SignIn extends AppCompatActivity {
 
     TextInputLayout Phone, Password;
-    MaterialButton SignIn;
+    MaterialButton SignIn, JoinNow;
     String phone, password;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://once-again-33-default-rtdb.firebaseio.com/");
 
@@ -40,6 +40,7 @@ public class SignIn extends AppCompatActivity {
         Phone = findViewById(R.id.phone);
         Password = findViewById(R.id.password1);
         SignIn = findViewById(R.id.signIn);
+        JoinNow = findViewById(R.id.join_now2);
 
         //get data from EditTexts into String variables
         password = Password.getEditText().getText().toString();
@@ -95,6 +96,15 @@ public class SignIn extends AppCompatActivity {
                 }
             }//End of onClick
         });
+
+        //open SignUp activity
+        JoinNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SignUp.class);
+                startActivity(intent);
+            }
+        });
     }//End of onCreate
 
 
@@ -129,4 +139,4 @@ public class SignIn extends AppCompatActivity {
             return true;
         }
     }
-}
+}//End of class
